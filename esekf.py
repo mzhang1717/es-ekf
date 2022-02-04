@@ -28,7 +28,7 @@ class ESEKF:
         self.var_imu_f = 0.10  # variance of force/acceleration measurements (i.e., accelerometer)
         self.var_imu_w = 0.25  # variance of rotational velocity measurement (i.e., gyrometer)
 
-    def kinematics(self, a_m, w_m, dt):
+    def prediction(self, a_m, w_m, dt):
         """
         Prediction step for nominal states and error states
         :param a_m: acceleration measurement
@@ -54,7 +54,7 @@ class ESEKF:
         # p_cov[k] = F @ p_cov[k - 1] @ F.T + l_jac @ Q @ l_jac.T
         self.p_cov = self.F @ self.p_cov @ self.F.T + self.l_jac @ self.Q @ self.l_jac.T
 
-    def measurement_update(self, sensor_var, y_k):
+    def correction(self, sensor_var, y_k):
         """
         Correct the predicted states & covariance by incorporating external measurments
         :param sensor_var: variance of the external sensor (Lidar or GNSS) measurements

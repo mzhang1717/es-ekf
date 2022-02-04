@@ -111,7 +111,7 @@ def main():
         delta_t = imu_f.t[k] - imu_f.t[k - 1]
 
         # Prediction step of the nominal & error states. This happens at a high-rate
-        es_efk_solver.kinematics(a_m=imu_f.data[k-1], w_m=imu_w.data[k-1], dt=delta_t)
+        es_efk_solver.prediction(a_m=imu_f.data[k-1], w_m=imu_w.data[k-1], dt=delta_t)
 
         # If there is no external measurement to correct the predicted state, the predicted one will be considered
         # as estimated state
@@ -125,7 +125,7 @@ def main():
         if k_l < lidar.data.shape[0] and k < imu_f.data.shape[0] - 1 and lidar.t[k_l] >= imu_f.t[k] and lidar.t[k_l] < \
                 imu_f.t[k + 1]:
             delta_tl = 1.0  # lidar.t[k_l] - lidar.t[k_l -1]
-            es_efk_solver.measurement_update(np.eye(3) * var_lidar * (delta_tl ** 2), lidar.data[k_l])
+            es_efk_solver.correction(np.eye(3) * var_lidar * (delta_tl ** 2), lidar.data[k_l])
 
             p_hat, v_hat, q_hat, p_cov_hat = es_efk_solver.get_states()
             p_est[k] = p_hat
@@ -138,7 +138,7 @@ def main():
         if k_g < gnss.data.shape[0] and k < imu_f.data.shape[0] - 1 and gnss.t[k_g] >= imu_f.t[k] and gnss.t[k_g] < \
                 imu_f.t[k + 1]:
             delta_tg = 1.0  # gnss.t[k_g] - gnss.t[k_g -1]
-            es_efk_solver.measurement_update(np.eye(3) * var_gnss * (delta_tg ** 2), gnss.data[k_g])
+            es_efk_solver.correction(np.eye(3) * var_gnss * (delta_tg ** 2), gnss.data[k_g])
 
             p_hat, v_hat, q_hat, p_cov_hat = es_efk_solver.get_states()
             p_est[k] = p_hat
