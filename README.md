@@ -61,5 +61,7 @@ truth. The second plot shows the positional and rotational errors.
 
 # Reference
 - [Quaternion kinematics for the error-state Kalman filter](https://arxiv.org/abs/1711.02508)
+- [A micro Lie theory for state estimation in robotics](https://arxiv.org/abs/1812.01537)
+- [YouTube: Lie theory for the roboticist](https://youtu.be/nHOcoIyJj2o)
 
 
