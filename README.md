@@ -1,10 +1,10 @@
-#Introduction of Error State EKF
+# Introduction of Error State EKF
 This project provides a python implementation of the 
 Error State Extended Kalman Filter (ES-EKF). It is an 
 assignment project of the State Estimation and Localization course
 of Self-Driving Cars Specialization by University of Toronto.
 
-#Method
+# Method
 The error-state filter formulation involves three set of states:
 - True state: the true state of a system to be estimated. It is
 a composition of the nominal state and error state.
@@ -23,8 +23,8 @@ the GNSS or LIDAR measurements arrive at a much lower rate (1Hz). This means
 the correction is only applied after multiple prediction steps.
 ![](results/es_ekf_1.jpg)
 
-##Prediction
-The state consists of position, velocity, and orientation. It should be noted the 
+## Prediction
+The state consists of position, velocity, and orientation. It should be noted that the 
 orientation is parameterized in different ways in the nominal state and error state. 
 The orientation is represented by a unit quaternion in the nominal state. It involves 
 redundant parameters but avoids singularities, gimbal lock issues, or the like. The 
@@ -36,7 +36,7 @@ of the error dynamics.
 ![](results/es_ekf_4.jpg)
 ![](results/es_ekf_5.jpg)
 
-##Correction
+## Correction
 When a measurement from GNSS or LIDAR arrives, 
 the predicted states are corrected by this measurement.
 The correction consists of two steps:
@@ -46,7 +46,7 @@ update the covariance matrix
 ![](results/es_ekf_6.jpg)
 ![](results/es_ekf_7.jpg)
 
-#Running
+# Running
 - Execute the follow command in a terminal:
 python3 test_esekf.py
 - Two plots will be displayed if the code runs smoothly. 
@@ -54,8 +54,8 @@ The first plot shows the estimated trajectory against the ground
 truth. The second plot shows the positional and rotational errors.
 ![](results/traj.png)
 ![](results/error.png)
-- 
-#Reference
+
+# Reference
 - [Quaternion kinematics for the error-state Kalman filter](https://arxiv.org/abs/1711.02508)
 
 
